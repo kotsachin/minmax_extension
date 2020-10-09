@@ -1,0 +1,14 @@
+Installation
+============
+
+This module is a PostgreSQL extension which provides the oracle compatible feature.
+
+Use below command in source directory of oracompat to install the module.
+
+make install
+
+Then use the below command to create extension oracompat in database.
+
+CREATE EXTENSION minmax;
+
+This package requires PostgreSQL 9.1 or later.
