@@ -5,9 +5,9 @@
 --LANGUAGE C IMMUTABLE STRICT;
 
 create function
-  minmax_sfunc( point, float8 )
+  minmax_sfunc(int[])
 returns
-  point
+  text
 as
   'minmax.so', 'minmax_sfunc'
 language
@@ -24,10 +24,11 @@ begin
 end;
 $$;
 
-create aggregate min_to_max(float8)
+create aggregate min_to_max(int)
 (
-    sfunc = minmax_sfunc,
-    stype = point,
-    finalfunc = minmax_finalfunc
+    sfunc = array_append,
+    stype = int[],
+    finalfunc = minmax_sfunc,
+	initcond='{}'
 );
 

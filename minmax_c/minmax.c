@@ -1,14 +1,13 @@
 #include "postgres.h"
+
+#include "catalog/pg_type.h"
 #include "fmgr.h"
-#include "catalog/pg_type.h"
-#include "utils/builtins.h"
-#include "utils/ruleutils.h"
-#include "utils/geo_decls.h"
-#include "utils/array.h"
-#include "utils/int8.h"
-#include "catalog/pg_type.h"
 #include "miscadmin.h"
-#include "utils/jsonb.h"
+#include "utils/array.h"
+#include "utils/builtins.h"
+#include "utils/geo_decls.h"
+#include "utils/int8.h"
+#include "utils/ruleutils.h"
 
 
 #ifdef PG_MODULE_MAGIC
@@ -25,7 +24,7 @@ minmax_sfunc(PG_FUNCTION_ARGS)
     ArrayType  *array = PG_GETARG_ARRAYTYPE_P(0);
     Datum      *values;
     int         nelement;
-    int         i;  
+    int         i;
     int         min, max;
     if (ARR_ELEMTYPE(array) != INT4OID)
         ereport(ERROR,
@@ -38,14 +37,14 @@ minmax_sfunc(PG_FUNCTION_ARGS)
         PG_RETURN_NULL();
     min = max = DatumGetInt32(values[0]);
     for (i = 1; i < nelement; i++)
-    {   
+    {
         if (min > DatumGetInt32(values[i]))
             min = DatumGetInt32(values[i]);
         if (max < DatumGetInt32(values[i]))
             max = DatumGetInt32(values[i]);
-    }   
+    }
     PG_RETURN_TEXT_P(cstring_to_text(psprintf("%d -> %d", min, max)));
-} 
+}
 
 
 
