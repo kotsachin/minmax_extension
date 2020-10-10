@@ -1,1 +1,1 @@
-Plpgsql based postgresql extention to calculate minimum and maximim from the column values.
+Plpgsql and C based postgresql extention to calculate minimum and maximim from the column values.
